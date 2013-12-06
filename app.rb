@@ -38,12 +38,13 @@ end
 
 
 get '/' do
+  @posts = Post.last(20)
   haml :home
 end
 
 #signup process - signup form
 get '/users/new' do 
-  haml :signup
+  haml :'users/new'
 end
 
 #signup process - process signup form data
@@ -82,12 +83,51 @@ get '/sign_out' do
   redirect '/'
 end
 
+#new posts route - form
+get '/users/:id/posts/new' do
+  @user = User.find(params[:id])
+  if current_user == @user
+    haml :new_post
+  else
+    redirect '/'
+  end
+end
+
+#new posts route - process form data, authenticate user, create new post
+post '/users/:id/posts/new' do
+  @user = User.find(params[:id])
+  if @user == current_user
+    @post = Post.new(params[:post])
+    if @post.save && @user.posts << @post
+      flash[:notice] = "Your post was saved successfully."
+      redirect "/users/#{@user.id}"
+    else
+      flash[:alert] = "There was a problem saving your post."
+      redirect "/users/#{@user.id}/posts/new"
+    end
+  else
+    redirect '/'
+  end
+end
 
 
+#user profile route
+get '/users/:id' do
+  @user = User.find(params[:id])
+  haml :'users/show'
+end
 
 
-
-
+#show post page
+get '/users/:user_id/posts/:id' do
+  @post = Post.find(params[:id])
+  if @post.user_id == params[:user_id].to_i
+    haml :'posts/show'
+  else
+    flash[:alert] = "Your post could not be found."
+    redirect '/'
+  end
+end
 
 
 

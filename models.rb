@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :email
   validates_uniqueness_of :username
+  validates_presence_of :fname
+  validates_presence_of :lname
 
   def encrypt_password
     if self.password.present?
@@ -21,6 +23,10 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def full_name
+    fname + ' ' + lname
   end
 
   has_many :posts

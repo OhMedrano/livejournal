@@ -1,1 +1,16 @@
 Share your thoughts on doges and other stuff.
+
+Here are some of the recent posts from our awesome users:
+
+-@posts.sort_by(&:created_at).reverse.each do |post|
+  %a{href: "/users/#{post.user.id}/posts/#{post.id}"}
+    %h4=post.title
+  .posted-on
+    Posted on
+    =post.created_at.strftime('%b %e, %l:%M %p')
+    by
+    =post.user.full_name
+  %br
+  %p=post.body
+  %br
+  %br

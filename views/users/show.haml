@@ -1,0 +1,17 @@
+%h2
+  =@user.full_name
+
+-if current_user
+  %a{href: "/users/#{current_user.id}/posts/new"}
+    New Post
+
+%h3 Posts
+-@user.posts.each do |post|
+  %h4=post.title
+  .posted-on
+    Posted on
+    =post.created_at.strftime('%b %e, %l:%M %p')
+  %br
+  %p=post.body
+  %br
+  %br

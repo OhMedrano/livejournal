@@ -1,0 +1,9 @@
+%h1 Create a new post
+
+%form{action: "/users/#{@user.id}/posts/new", method: 'POST'}
+  %label{for: '[post]title'} Title:
+  %input{type: 'text', name: '[post]title'}
+  %label{for: '[post]body'} Text:
+  %textarea{name: '[post]body'}
+  %br
+  %input.btn{type: 'submit', value: 'create post'}

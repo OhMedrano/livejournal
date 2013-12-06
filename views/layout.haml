@@ -3,7 +3,7 @@
   %head
     %title livejournal
     %link{rel: 'stylesheet', href: '/bootstrap.min.css', type: 'text/css'}
-    %link{rel: 'stylesheet', href: 'style.css', type: 'text/css'}
+    %link{rel: 'stylesheet', href: '/style.css', type: 'text/css'}
   %body
     .row
       .span10.offset2
@@ -20,6 +20,11 @@
           %li
             %a{href: '/'} Home
           -if current_user
+            %li
+              %a{href: "/users/#{current_user.id}/posts/new"} New Post
+            %li
+              %a{href: "/users/#{current_user.id}"}
+                Profile
             %li
               %a{href: '/sign_out'} Sign Out
           -else
