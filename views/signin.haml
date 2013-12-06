@@ -1,0 +1,9 @@
+%h1 Sign in
+
+%form{action: '/sign_in', method: 'POST'}
+  %label{for: '[user]email'} Email:
+  %input{type: 'text', name: '[user]email'}
+  %label{for: '[user]password'} Password:
+  %input{type: 'password', name: '[user]password'}
+  %br
+  %input.btn{type: 'submit', value: 'sign in'}

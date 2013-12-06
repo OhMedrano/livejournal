@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %title livejournal
+    %link{rel: 'stylesheet', href: '/bootstrap.min.css', type: 'text/css'}
+    %link{rel: 'stylesheet', href: 'style.css', type: 'text/css'}
+  %body
+    .row
+      .span10.offset2
+        %h1 Welcome to livejournal.
+        -if current_user
+          Hope you're having a wonderful day, #{current_user.fname}.
+        -if flash[:notice]
+          .alert.alert-success
+            =flash[:notice]
+        -if flash[:alert]
+          .alert.alert-error
+            =flash[:alert]
+        %ul.nav.nav-tabs
+          %li
+            %a{href: '/'} Home
+          -if current_user
+            %li
+              %a{href: '/sign_out'} Sign Out
+          -else
+            %li
+              %a{href: '/users/new'} Sign Up
+            %li
+              %a{href: '/sign_in'} Sign In
+        =yield
